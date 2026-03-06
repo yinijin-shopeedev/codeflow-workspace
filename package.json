@@ -1,0 +1,72 @@
+{
+  "name": "codeflow-workspace",
+  "displayName": "Code Flow Workspace",
+  "description": "在 Cursor/VS Code 中打开 Code Flow 工作区（文件树、TRD/DSL、Agent 流式输出）",
+  "version": "0.1.1",
+  "publisher": "shopee-codeflow",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "icon": "code-flow-128.png",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:codeflow.openWorkspace",
+    "onCommand:codeflow.refreshWorkspace",
+    "onView:codeflow.sidebarView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codeflow.openWorkspace",
+        "title": "Code Flow: Open Workspace",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "codeflow.refreshWorkspace",
+        "title": "Code Flow: Refresh Workspace",
+        "icon": "$(refresh)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codeflow",
+          "title": "Code Flow",
+          "icon": "$(folder-opened)"
+        }
+      ]
+    },
+    "views": {
+      "codeflow": [
+        {
+          "type": "webView",
+          "id": "codeflow.sidebarView",
+          "name": "Workspace"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Code Flow",
+      "properties": {
+        "codeflow.localApiUrl": {
+          "type": "string",
+          "default": "http://localhost:7002",
+          "description": "本地 Code Flow 服务地址（阶段二会用到）"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "typescript": "^5.0.0"
+  }
+}
